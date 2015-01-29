@@ -7,9 +7,9 @@ module FontAssets
     initializer "font_assets.configure_rails_initialization" do |app|
       config.font_assets.origin ||= "*"
       config.font_assets.options ||= { allow_ssl: true }
-      config.serve_static_assets ||= true
+      config.font_assets.serve_static_assets = app.config.serve_static_assets || true
 
-      insert_target = if defined?(ActionDispatch::Static) && config.serve_static_assets
+      insert_target = if defined?(ActionDispatch::Static) && config.font_assets.serve_static_assets
         'ActionDispatch::Static'
       else
         'Rack::Runtime'
